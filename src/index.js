@@ -1,3 +1,10 @@
+/**
+ * Root element where the app will be rendered.
+ * @author Naman Kumar <namankumar.hk@gmail.com>
+ * @created Dec 25, 2025
+ * @module src/index
+ */
+
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";

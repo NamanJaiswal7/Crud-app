@@ -1,3 +1,13 @@
+/**
+ * Component to show the form for movie information.
+ * This component is used for both creating and updating movie data.
+ * It displays input fields for movie title, genre, and release year, and handles validation and form submission.
+ * 
+ * @author Naman Kumar <namankumar.hk@gmail.com>
+ * @created Dec 25, 2025
+ * @module components/pages/MovieForm
+ */
+
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
@@ -15,6 +25,7 @@ const MovieForm = () => {
   const [formData, setFormData] = useState({});
   const [errors, setErrors] = useState({});
 
+  // If editing an existing movie, populate the form with the movie data
   useEffect(() => {
     if (id) {
       const existingMovie = movies.find((movie) => movie.id === id);
@@ -22,13 +33,23 @@ const MovieForm = () => {
     }
   }, [id, movies]);
 
+  /**
+   * Event handler to update the formData state when an input field changes.
+   * @param {Object} e - Event object captured when an input field changes.
+   */
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  /**
+   * Handles the form submission.
+   * Validates the form data and either adds or updates a movie in the Redux store.
+   * @param {Object} e - Event object passed on form submission.
+   */
   const handleSubmit = (e) => {
     e.preventDefault();
     const validationErrors = validateFields(formData, formFields);
+
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
       return;
@@ -39,7 +60,8 @@ const MovieForm = () => {
     } else {
       dispatch(addMovie({ ...formData, id: Date.now().toString() }));
     }
-    navigate("/movies");
+
+    navigate("/");
   };
 
   return (
